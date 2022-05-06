@@ -3,9 +3,12 @@ const bodyParser = require("body-parser");
 const request = require("request");
 const https  = require("https")
 const app = express();
+require('dotenv').config();
 
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended:true}));
+
+const authentication = process.env.AUTH ;
 
 app.get("/" , function(req , res){
   res.sendFile(__dirname + "/signup.html");
@@ -36,7 +39,7 @@ const url ="https://us5.api.mailchimp.com/3.0/lists/38b06727d1"
 
 const options ={
   method : "post",
-  auth: "saurav:4a24b92f55aa6d2892f2c90d29a35327-us5"
+  auth: "saurav:"+authentication
 }
 
 const request = https.request(url, options , function(response) {
